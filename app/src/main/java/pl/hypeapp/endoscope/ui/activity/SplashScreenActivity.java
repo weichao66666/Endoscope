@@ -15,15 +15,13 @@ import pl.hypeapp.endoscope.R;
 import pl.hypeapp.endoscope.presenter.SplashScreenPresenter;
 import pl.hypeapp.endoscope.util.SettingsPreferencesUtil;
 import pl.hypeapp.endoscope.view.SplashScreenView;
-import xyz.hanks.library.SmallBang;
-import xyz.hanks.library.SmallBangListener;
 
 public class SplashScreenActivity extends TiActivity<SplashScreenPresenter, SplashScreenView> implements SplashScreenView {
-    private static final int SMALLBANG_RADIUS = 180;
     private SplashScreenPresenter splashScreenPresenter;
-    private SmallBang smallBang;
-    @BindView(R.id.logo_text) ImageView logoTextSwap;
-    @BindView(R.id.logo_aparat_icon) ImageView logoIcon;
+    @BindView(R.id.logo_text)
+    ImageView logoTextSwap;
+    @BindView(R.id.logo_aparat_icon)
+    ImageView logoIcon;
 
     @NonNull
     @Override
@@ -38,23 +36,13 @@ public class SplashScreenActivity extends TiActivity<SplashScreenPresenter, Spla
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
         ButterKnife.bind(this);
-        smallBang = SmallBang.attach2Window(this);
     }
 
     @Override
     public void startSplashAnimation() {
-        smallBang.bang(logoTextSwap, SMALLBANG_RADIUS, new SmallBangListener() {
-            @Override
-            public void onAnimationStart() {
-                ((AnimationDrawable) logoIcon.getBackground()).start();
-                logoTextSwap.setImageResource(R.drawable.hypeap_logo_text);
-            }
-
-            @Override
-            public void onAnimationEnd() {
-                splashScreenPresenter.delayRunActivity();
-            }
-        });
+        ((AnimationDrawable) logoIcon.getBackground()).start();
+        logoTextSwap.setImageResource(R.drawable.hypeap_logo_text);
+        splashScreenPresenter.delayRunActivity();
     }
 
     @Override
@@ -70,5 +58,4 @@ public class SplashScreenActivity extends TiActivity<SplashScreenPresenter, Spla
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
     }
-
 }
